@@ -1,6 +1,6 @@
 # node-ensurethat
 
-node-ensurethat makes arguments handling a breeze.
+node-ensurethat makes handling arguments a breeze.
 
 If you have any questions or feedback, feel free to contact me using [@goloroden](https://twitter.com/goloroden) on Twitter.
 
