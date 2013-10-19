@@ -4,7 +4,6 @@
   "description": "node-ensurethat makes arguments handling a breeze.",
   "author": "Golo Roden <golo.roden@thenativeweb.io> (http://www.thenativeweb.io)",
   "main": "lib/ensure.js",
-  "private": true,
   "dependencies": {
     "underscore": "1.5.2"
   },
