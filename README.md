@@ -82,20 +82,6 @@ var doSomethingComplex = function () {
 
 If you need to you can also combine this with optional properties within the object, or even make the object itself optional.
 
-The code in the next sample demonstrates this behavior. If no object is given, an object with property `foo` and value `23` is created. Next, this object is checked against the given schema. As `bar` is missing, but marked as optional, `bar` is added with value `42`. So you'll end up with a perfectly filled object. The only chance to fail is if you specify an object, but no `foo` property.
-
-```javascript
-var doSomethingComplex = function () {
-  var args = ensure.that(arguments).are({
-    options: [ {
-      foo: 'number',
-      bar: [ 'number', 42 ]
-    }, {} ]
-  });
-  // ...
-};
-```
-
 ## Running the tests
 
 node-ensurethat has been developed using TDD. To run the tests, go to the folder where you have installed node-ensurethat to and run `npm test`. You need to have [mocha](https://github.com/visionmedia/mocha) installed.
