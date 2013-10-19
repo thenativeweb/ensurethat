@@ -127,5 +127,28 @@ suite('ensure', function () {
         });
       });
     });
+
+    test('complex test.', function () {
+      var args,
+          fn = function () {};
+
+      (function () {
+        args = ensure.that(arguments).are({
+          first: 'number',
+          second: [ 'number', 42 ],
+          options: { foo: 'number', bar: 'number', baz: [ 'number', 65 ] },
+          foo: 'string',
+          callback: [ 'function', fn ]
+        });
+      })(23, { foo: 23, bar: 42 }, 'bar');
+
+      assert.that(args, is.equalTo({
+        first: 23,
+        second: 42,
+        options: { foo: 23, bar: 42, baz: 65 },
+        foo: 'bar',
+        callback: fn
+      }));
+    });
   });
 });
