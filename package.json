@@ -1,6 +1,6 @@
 {
   "name": "node-ensurethat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "node-ensurethat makes arguments handling a breeze.",
   "author": "Golo Roden <golo.roden@thenativeweb.io> (http://www.thenativeweb.io)",
   "main": "lib/ensure.js",

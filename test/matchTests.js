@@ -58,4 +58,62 @@ suite('match', function () {
       });
     }, is.throwing(err));
   }));
+
+  suite('object', function () {
+    test('returns the value if the type is as requested.', function () {
+      assert.that(match({
+        key: 'foo',
+        value: { foo: 23, bar: 42 },
+        expectedType: 'object'
+      }), is.equalTo({ foo: 23, bar: 42 }));
+    });
+
+    test('returns the default value if the type is not as requested, but a default value is given.', function () {
+      assert.that(match({
+        key: 'foo',
+        value: 'bar',
+        expectedType: 'object',
+        isOptional: true,
+        defaultValue: { foo: 23, bar: 42 }
+      }), is.equalTo({ foo: 23, bar: 42 }));
+    });
+
+    test('returns the default value if the type is not as requested, and no default value is given.', function () {
+      assert.that(function () {
+        match({
+          key: 'foo',
+          value: 'bar',
+          expectedType: 'object'
+        });
+      }, is.throwing('Argument \'foo\' is of type \'string\', but must be of type \'object\'.'));
+    });
+
+    suite('with recursion', function () {
+      test('returns the value in a sub-object.', function () {
+        assert.that(match({
+          key: 'foo',
+          value: { foo: 23, bar: 42 },
+          expectedType: { foo: 'number', bar: 'number' }
+        }), is.equalTo({ foo: 23, bar: 42 }));
+      });
+
+      test('returns the default value in a sub-object.', function () {
+        assert.that(match({
+          key: 'foo',
+          value: { foo: 23 },
+          expectedType: { foo: 'number', bar: [ 'number', 42 ]}
+        }), is.equalTo({ foo: 23, bar: 42 }));
+      });
+
+      test('throws an exception in a sub-object.', function () {
+        assert.that(function () {
+          match({
+            key: 'foo',
+            value: { foo: 23 },
+            expectedType: { foo: 'number', bar: 'number' }
+          });
+        }, is.throwing('Argument \'bar\' is of type \'undefined\', but must be of type \'number\'.'));
+      });
+    });
+  });
 });
