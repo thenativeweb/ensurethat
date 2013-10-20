@@ -82,6 +82,37 @@ var doSomethingComplex = function () {
 
 If you need to you can also combine this with optional properties within the object, or even make the object itself optional.
 
+### A complex sample
+
+The next sample shows a more complex scenario with a mixture of mandatory and optional parameters, and a mixture of base types and objects. Then, e.g. you may call the `doSomethingVeryComplex` function with only `first`, a partially filled `options` object, and `foo`.
+
+```javascript
+var doSomethingVeryComplex = function () {
+  var args = ensure.that(arguments).are({
+    first: 'number',
+    second: [ 'number', 42 ],
+    options: { foo: 'number', bar: 'number', baz: [ 'number', 65 ] },
+    foo: 'string',
+    callback: [ 'function', function () {} ]
+  });
+  // ...
+};
+
+doSomethingVeryComplex(23, { foo: 23, bar: 42 }, 'bar');
+```
+
+The result is a perfectly verified and extended `args` object.
+
+```javascript
+{
+  first: 23,
+  second: 42,
+  options: { foo: 23, bar: 42, baz: 65 },
+  foo: 'bar',
+  callback: function () {}
+};
+```
+
 ## Running the tests
 
 node-ensurethat has been developed using TDD. To run the tests, go to the folder where you have installed node-ensurethat to and run `npm test`. You need to have [mocha](https://github.com/visionmedia/mocha) installed.
