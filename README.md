@@ -110,7 +110,7 @@ The result is a perfectly verified and extended `args` object.
   options: { foo: 23, bar: 42, baz: 65 },
   foo: 'bar',
   callback: function () {}
-};
+}
 ```
 
 ## Running the tests
