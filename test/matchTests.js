@@ -22,7 +22,10 @@ suite('match', function () {
       key: key,
       value: value,
       expectedType: type
-    }), is.equalTo(value));
+    }), is.equalTo({
+      typeMatch: true,
+      value: value
+    }));
   }));
 
   test('returns the default value if the type is not as requested, but a default value is given.', cases([
@@ -39,7 +42,10 @@ suite('match', function () {
       expectedType: type,
       isOptional: true,
       defaultValue: defaultValue
-    }), is.equalTo(defaultValue));
+    }), is.equalTo({
+      typeMatch: false,
+      value: defaultValue
+    }));
   }));
 
   test('throws an exception if the type is not as requested, and no default value is given.', cases([
@@ -65,7 +71,10 @@ suite('match', function () {
         key: 'foo',
         value: { foo: 23, bar: 42 },
         expectedType: 'object'
-      }), is.equalTo({ foo: 23, bar: 42 }));
+      }), is.equalTo({
+        typeMatch: true,
+        value: { foo: 23, bar: 42 }
+      }));
     });
 
     test('returns the default value if the type is not as requested, but a default value is given.', function () {
@@ -75,10 +84,13 @@ suite('match', function () {
         expectedType: 'object',
         isOptional: true,
         defaultValue: { foo: 23, bar: 42 }
-      }), is.equalTo({ foo: 23, bar: 42 }));
+      }), is.equalTo({
+        typeMatch: false,
+        value: { foo: 23, bar: 42 }
+      }));
     });
 
-    test('returns the default value if the type is not as requested, and no default value is given.', function () {
+    test('throws an exception if the type is not as requested, and no default value is given.', function () {
       assert.that(function () {
         match({
           key: 'foo',
@@ -94,7 +106,10 @@ suite('match', function () {
           key: 'foo',
           value: { foo: 23, bar: 42 },
           expectedType: { foo: 'number', bar: 'number' }
-        }), is.equalTo({ foo: 23, bar: 42 }));
+        }), is.equalTo({
+          typeMatch: true,
+          value: { foo: 23, bar: 42 }
+        }));
       });
 
       test('returns the default value in a sub-object.', function () {
@@ -102,7 +117,10 @@ suite('match', function () {
           key: 'foo',
           value: { foo: 23 },
           expectedType: { foo: 'number', bar: [ 'number', 42 ]}
-        }), is.equalTo({ foo: 23, bar: 42 }));
+        }), is.equalTo({
+          typeMatch: true,
+          value: { foo: 23, bar: 42 }
+        }));
       });
 
       test('throws an exception in a sub-object.', function () {
