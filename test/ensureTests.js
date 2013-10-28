@@ -128,27 +128,79 @@ suite('ensure', function () {
       });
     });
 
-    test('complex test.', function () {
-      var args,
-          fn = function () {};
+    suite('complex tests.', function () {
+      test('mixed data types.', function () {
+        var args,
+            fn = function () {};
 
-      (function () {
-        args = ensure.that(arguments).are({
-          first: 'number',
-          second: [ 'number', 42 ],
-          options: { foo: 'number', bar: 'number', baz: [ 'number', 65 ] },
-          foo: 'string',
-          callback: [ 'function', fn ]
+        (function () {
+          args = ensure.that(arguments).are({
+            first: 'number',
+            second: [ 'number', 42 ],
+            options: { foo: 'number', bar: 'number', baz: [ 'number', 65 ] },
+            foo: 'string',
+            callback: [ 'function', fn ]
+          });
+        })(23, { foo: 23, bar: 42 }, 'bar');
+
+        assert.that(args, is.equalTo({
+          first: 23,
+          second: 42,
+          options: { foo: 23, bar: 42, baz: 65 },
+          foo: 'bar',
+          callback: fn
+        }));
+      });
+
+      suite('multiple arguments of same type.', function () {
+        var args,
+            callbackDiscriminator;
+
+        var fn = function () {
+          args = ensure.that(arguments).are({
+            first: 'number',
+            second: [ 'boolean', false ],
+            callbackA: [ 'function', function () { callbackDiscriminator = 'defaultCallbackA'; } ],
+            callbackB: [ 'function', function () { callbackDiscriminator = 'defaultCallbackB'; } ]
+          });
+
+          if (args.second) {
+            args.callbackA();
+          } else {
+            args.callbackB();
+          }
+        };
+
+        setup(function () {
+          args = undefined;
+          callbackDiscriminator = undefined;
         });
-      })(23, { foo: 23, bar: 42 }, 'bar');
 
-      assert.that(args, is.equalTo({
-        first: 23,
-        second: 42,
-        options: { foo: 23, bar: 42, baz: 65 },
-        foo: 'bar',
-        callback: fn
-      }));
+        test('multiple arguments of same type #1.', function () {
+          fn(23);
+          assert.that(callbackDiscriminator, is.equalTo('defaultCallbackB'));
+        });
+
+        test('multiple arguments of same type #2.', function () {
+          fn(23, true);
+          assert.that(callbackDiscriminator, is.equalTo('defaultCallbackA'));
+        });
+
+        test('multiple arguments of same type #3.', function () {
+          fn(23, function () { callbackDiscriminator = 'givenCallbackA'; });
+          assert.that(callbackDiscriminator, is.equalTo('defaultCallbackB'));
+        });
+
+        test('multiple arguments of same type #4.', function () {
+          fn(23, function () { callbackDiscriminator = 'givenCallbackA'; }, function () { callbackDiscriminator = 'givenCallbackB'; });
+          assert.that(callbackDiscriminator, is.equalTo('givenCallbackB'));
+        });
+
+        test('multiple arguments of same type #5.', function () {
+          fn(23, true, function () { callbackDiscriminator = 'givenCallbackA'; }, function () { callbackDiscriminator = 'givenCallbackB'; });
+          assert.that(callbackDiscriminator, is.equalTo('givenCallbackA'));
+        });
+      });
     });
   });
 });
