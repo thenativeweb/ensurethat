@@ -28,7 +28,7 @@ suite('ensure', function () {
       var args;
 
       (function () {
-        args = ensure.that(arguments).are({ first: 'number', second: [ 'number', 42 ]});
+        args = ensure.that(arguments).are({ first: 'number', second: [ 'number', 42 ] });
       })(23);
 
       assert.that(args, is.equalTo({ first: 23, second: 42 }));
@@ -63,17 +63,17 @@ suite('ensure', function () {
           bar: 42
         });
 
-        assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 }}));
+        assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 } }));
       });
 
       test('returns the default value for optional objects.', function () {
         var args;
 
         (function () {
-          args = ensure.that(arguments).are({ options: [ 'object', { foo: 23, bar: 42 }]});
+          args = ensure.that(arguments).are({ options: [ 'object', { foo: 23, bar: 42 }] });
         })();
 
-        assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 }}));
+        assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 } }));
       });
 
       test('throws an exception if a non-optional object is missing.', function () {
@@ -89,39 +89,39 @@ suite('ensure', function () {
           var args;
 
           (function () {
-            args = ensure.that(arguments).are({ options: { foo: 'number', bar: 'number' }});
+            args = ensure.that(arguments).are({ options: { foo: 'number', bar: 'number' } });
           })({
             foo: 23,
             bar: 42
           });
 
-          assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 }}));
+          assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 } }));
         });
 
         test('returns an optional object with an optional sub-object.', function () {
           var args;
 
           (function () {
-            args = ensure.that(arguments).are({ options: [{ foo: [ 'number', 23 ], bar: [ 'number', 42 ]}, {} ]});
+            args = ensure.that(arguments).are({ options: [{ foo: [ 'number', 23 ], bar: [ 'number', 42 ] }, {}] });
           })();
 
-          assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 }}));
+          assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 } }));
         });
 
         test('returns an optional object with a partially optional sub-object.', function () {
           var args;
 
           (function () {
-            args = ensure.that(arguments).are({ options: [{ foo: 'number', bar: [ 'number', 42 ]}, { foo: 23 }]});
+            args = ensure.that(arguments).are({ options: [{ foo: 'number', bar: [ 'number', 42 ] }, { foo: 23 }] });
           })();
 
-          assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 }}));
+          assert.that(args, is.equalTo({ options: { foo: 23, bar: 42 } }));
         });
 
         test('throws an exception on partially optional sub-object.', function () {
           assert.that(function () {
             (function () {
-              ensure.that(arguments).are({ options: [ { foo: 'number', bar: [ 'number', 42 ]}, {} ]});
+              ensure.that(arguments).are({ options: [{ foo: 'number', bar: [ 'number', 42 ] }, {}] });
             })({});
           }, is.throwing());
         });
@@ -160,8 +160,12 @@ suite('ensure', function () {
           args = ensure.that(arguments).are({
             first: 'number',
             second: [ 'boolean', false ],
-            callbackA: [ 'function', function () { callbackDiscriminator = 'defaultCallbackA'; } ],
-            callbackB: [ 'function', function () { callbackDiscriminator = 'defaultCallbackB'; } ]
+            callbackA: [ 'function', function () {
+              callbackDiscriminator = 'defaultCallbackA';
+            } ],
+            callbackB: [ 'function', function () {
+              callbackDiscriminator = 'defaultCallbackB';
+            } ]
           });
 
           if (args.second) {
@@ -187,17 +191,27 @@ suite('ensure', function () {
         });
 
         test('multiple arguments of same type #3.', function () {
-          fn(23, function () { callbackDiscriminator = 'givenCallbackA'; });
+          fn(23, function () {
+            callbackDiscriminator = 'givenCallbackA';
+          });
           assert.that(callbackDiscriminator, is.equalTo('defaultCallbackB'));
         });
 
         test('multiple arguments of same type #4.', function () {
-          fn(23, function () { callbackDiscriminator = 'givenCallbackA'; }, function () { callbackDiscriminator = 'givenCallbackB'; });
+          fn(23, function () {
+            callbackDiscriminator = 'givenCallbackA';
+          }, function () {
+            callbackDiscriminator = 'givenCallbackB';
+          });
           assert.that(callbackDiscriminator, is.equalTo('givenCallbackB'));
         });
 
         test('multiple arguments of same type #5.', function () {
-          fn(23, true, function () { callbackDiscriminator = 'givenCallbackA'; }, function () { callbackDiscriminator = 'givenCallbackB'; });
+          fn(23, true, function () {
+            callbackDiscriminator = 'givenCallbackA';
+          }, function () {
+            callbackDiscriminator = 'givenCallbackB';
+          });
           assert.that(callbackDiscriminator, is.equalTo('givenCallbackA'));
         });
       });

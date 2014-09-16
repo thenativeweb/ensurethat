@@ -116,7 +116,7 @@ suite('match', function () {
         assert.that(match({
           key: 'foo',
           value: { foo: 23 },
-          expectedType: { foo: 'number', bar: [ 'number', 42 ]}
+          expectedType: { foo: 'number', bar: [ 'number', 42 ] }
         }), is.equalTo({
           typeMatch: true,
           value: { foo: 23, bar: 42 }

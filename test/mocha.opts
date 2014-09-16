@@ -1,2 +1,3 @@
---ui tdd
+--bail
 --reporter spec
+--ui tdd
