@@ -26,7 +26,7 @@ suite('ensure', function () {
       done();
     });
 
-    suite('single mandatory argument', function () {
+    suite('with a single mandatory argument', function () {
       test('returns the parsed argument for a valid argument.', function (done) {
         var args = ensure.that([ 'bar' ]).are({
           first: 'string'
@@ -47,7 +47,7 @@ suite('ensure', function () {
       });
     });
 
-    suite('multiple mandatory arguments', function () {
+    suite('with multiple mandatory arguments', function () {
       test('returns the parsed arguments for valid arguments.', function (done) {
         var args = ensure.that([ 'bar', 23 ]).are({
           first: 'string',
