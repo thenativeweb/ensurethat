@@ -27,7 +27,7 @@ In case at least one validator fails, node-ensurethat will throw an error with a
 If everything is fine, the `that` function returns an object which contains a property for each argument.
 
 ```javascript
-var add = function() {
+var add = function () {
   var args = ensure.that(arguments).are({
     first: 'number',
     second: 'number'
