@@ -19,6 +19,7 @@ Now you are able to use the `that` function to describe the function's arguments
 - `boolean`
 - `function`
 - `number`
+- `object`
 - `string`
 - `uuid`
 
