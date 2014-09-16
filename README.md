@@ -8,13 +8,21 @@ node-ensurethat makes handling arguments a breeze.
 
 ## Quick start
 
-Using node-ensurethat is easy. All you need to do is to add a reference to it within your Node.js application:
+First you need to add a reference to node-ensurethat to your application.
 
 ```javascript
 var ensure = require('node-ensurethat');
 ```
 
-Now you are able to use the `that` function to define the function's arguments. You may skip providing the arguments on the function completely. The `that` function returns an object which contains a property for each argument.
+Now you are able to use the `that` function to describe the function's arguments using validators. Currently, the following validators are supported.
+
+- `boolean`
+- `function`
+- `number`
+- `string`
+- `uuid`
+
+The `that` function returns an object which contains a property for each argument.
 
 ```javascript
 var add = function() {
@@ -27,89 +35,7 @@ var add = function() {
 };
 ```
 
-### Handling optional arguments
-
-You can specify optional parameters. All you need to do is put the required type as well as the default value in square brackets.
-
-```javascript
-var add = function() {
-  var args = ensure.that(arguments).are({
-    first: 'number',
-    second: 'number',
-    third: [ 'number', 10 ]
-  });
-
-  return args.first + args.second + args.third;
-};
-```
-
-### Handling objects
-
-Arguments of type `object` can be seen as a special case. The easiest definition is to specify that an argument needs to be of the correct type.
-
-```javascript
-var doSomethingComplex = function () {
-  var args = ensure.that(arguments).are({
-    options: 'object'
-  });
-  // ...
-};
-```
-
-Obviously you can also mark an argument of type `object` as optional, as long as you specify a default value.
-
-```javascript
-var doSomethingComplex = function () {
-  var args = ensure.that(arguments).are({
-    options: [ 'object', { foo: 23, bar: 42 } ]
-  });
-  // ...
-};
-```
-
-So far, this has not been very special. The interesting part begins when you replace the `object` specification by a real object, which again is a schema. In this case, node-ensurethat will work recursively.
-
-```javascript
-var doSomethingComplex = function () {
-  var args = ensure.that(arguments).are({
-    options: { foo: 'number', bar: 'number' }
-  });
-  // ...
-};
-```
-
-If you need to you can also combine this with optional properties within the object, or even make the object itself optional.
-
-### A complex sample
-
-The next sample shows a more complex scenario with a mixture of mandatory and optional parameters, and a mixture of base types and objects. Then, e.g. you may call the `doSomethingVeryComplex` function with only `first`, a partially filled `options` object, and `foo`.
-
-```javascript
-var doSomethingVeryComplex = function () {
-  var args = ensure.that(arguments).are({
-    first: 'number',
-    second: [ 'number', 42 ],
-    options: { foo: 'number', bar: 'number', baz: [ 'number', 65 ] },
-    foo: 'string',
-    callback: [ 'function', function () {} ]
-  });
-  // ...
-};
-
-doSomethingVeryComplex(23, { foo: 23, bar: 42 }, 'bar');
-```
-
-The result is a perfectly verified and extended `args` object.
-
-```javascript
-{
-  first: 23,
-  second: 42,
-  options: { foo: 23, bar: 42, baz: 65 },
-  foo: 'bar',
-  callback: function () {}
-}
-```
+*Please note that as the arguments are accessed using the `arguments` and `args` variables, you may skip specifying the arguments within the function's signature completely.*
 
 ## Running the build
 
