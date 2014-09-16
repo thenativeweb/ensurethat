@@ -22,7 +22,9 @@ Now you are able to use the `that` function to describe the function's arguments
 - `string`
 - `uuid`
 
-The `that` function returns an object which contains a property for each argument.
+In case at least one validator fails, node-ensurethat will throw an error with an appropriate error message.
+
+If everything is fine, the `that` function returns an object which contains a property for each argument.
 
 ```javascript
 var add = function() {
