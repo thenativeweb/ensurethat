@@ -16,12 +16,12 @@ var ensure = require('node-ensurethat');
 
 Now you are able to use the `that` function to describe the function's arguments using validators. Currently, the following validators are supported.
 
-- `boolean`
-- `function`
-- `number`
-- `object`
-- `string`
-- `uuid`
+- `boolean`, default value is `false`
+- `function`, default value is a no-op function
+- `number`, default value is `0`
+- `object`, default value is `null`
+- `string`, default value is `''`
+- `uuid`, default value is `'00000000-0000-4000-89ab-000000000000'`
 
 In case at least one validator fails, node-ensurethat will throw an error with an appropriate error message.
 
@@ -39,6 +39,36 @@ var add = function () {
 ```
 
 *Please note that as the arguments are accessed using the `arguments` and `args` variables, you may skip specifying the arguments within the function's signature completely.*
+
+### Handling optional arguments
+
+If you want to mark an argument as optional, surround its validators with brackets.
+
+```javascript
+var args = ensure.that(arguments).are({
+  first: 'number',
+  second: [ 'number' ]
+});
+```
+
+For each validator there is a default value which is used to initialize optional arguments. If you want to override this default value you can specify a default value manually.
+
+```javascript
+var args = ensure.that(arguments).are({
+  first: 'number',
+  second: [ 'number', 23 ]
+});
+```
+
+You can also have multiple optional arguments, but within a specific type optional arguments must always come last. Hence, the following sample is fine.
+
+```javascript
+var args = ensure.that(arguments).are({
+  first: 'number',
+  second: [ 'number', 23 ],
+  third: [ 'number', 42 ]
+});
+```
 
 ## Running the build
 
