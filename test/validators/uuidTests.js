@@ -14,7 +14,16 @@ suite('uuid', function () {
     var validator = new Validator();
     assert.that(validator, is.ofType('object'));
     assert.that(validator.isValid, is.ofType('function'));
+    assert.that(validator.defaultValue, is.ofType('function'));
     done();
+  });
+
+  suite('defaultValue', function () {
+    test('returns a nulled uuid.', function (done) {
+      var validator = new Validator();
+      assert.that(validator.defaultValue(), is.equalTo('00000000-0000-4000-89ab-000000000000'));
+      done();
+    });
   });
 
   suite('isValid', function () {

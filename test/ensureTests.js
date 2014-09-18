@@ -47,6 +47,47 @@ suite('ensure', function () {
       });
     });
 
+    suite('with a single optional argument', function () {
+      test('returns the parsed argument for a given argument.', function (done) {
+        var args = ensure.that([ 'bar' ]).are({
+          first: [ 'string' ]
+        });
+        assert.that(args, is.equalTo({
+          first: 'bar'
+        }));
+        done();
+      });
+
+      test('returns the default value for a missing argument.', function (done) {
+        var args = ensure.that([]).are({
+          first: [ 'string', 'bar' ]
+        });
+        assert.that(args, is.equalTo({
+          first: 'bar'
+        }));
+        done();
+      });
+
+      test('returns the default value for a missing argument and a missing default value.', function (done) {
+        var args = ensure.that([]).are({
+          first: [ 'string' ]
+        });
+        assert.that(args, is.equalTo({
+          first: ''
+        }));
+        done();
+      });
+
+      test('throws an error for an invalid argument.', function (done) {
+        assert.that(function () {
+          ensure.that([ 23 ]).are({
+            first: [ 'string' ]
+          });
+        }, is.throwing('23 could not be matched.'));
+        done();
+      });
+    });
+
     suite('with multiple mandatory arguments', function () {
       test('returns the parsed arguments for valid arguments.', function (done) {
         var args = ensure.that([ 'bar', 23 ]).are({
@@ -77,6 +118,127 @@ suite('ensure', function () {
             second: 'number'
           });
         }, is.throwing('foo is not: number'));
+        done();
+      });
+    });
+
+    suite('with multiple optional arguments', function () {
+      suite('where all arguments have the same type', function () {
+        test('returns the parsed arguments when all arguments are given.', function (done) {
+          var args = ensure.that([ 'foo', 'bar' ]).are({
+            first: [ 'string' ],
+            second: [ 'string' ]
+          });
+          assert.that(args, is.equalTo({
+            first: 'foo',
+            second: 'bar'
+          }));
+          done();
+        });
+
+        test('returns the default value for the last missing argument.', function (done) {
+          var args = ensure.that([ 'foo' ]).are({
+            first: [ 'string', 'foo' ],
+            second: [ 'string', 'bar' ]
+          });
+          assert.that(args, is.equalTo({
+            first: 'foo',
+            second: 'bar'
+          }));
+          done();
+        });
+
+        test('returns the default values for the last missing arguments.', function (done) {
+          var args = ensure.that([]).are({
+            first: [ 'string', 'foo' ],
+            second: [ 'string', 'bar' ]
+          });
+          assert.that(args, is.equalTo({
+            first: 'foo',
+            second: 'bar'
+          }));
+          done();
+        });
+      });
+
+      suite('where arguments have different types', function () {
+        test('returns the parsed arguments when all arguments are given.', function (done) {
+          var args = ensure.that([ 23, 'bar' ]).are({
+            first: [ 'number' ],
+            second: [ 'string' ]
+          });
+          assert.that(args, is.equalTo({
+            first: 23,
+            second: 'bar'
+          }));
+          done();
+        });
+
+        test('returns the default value for the last missing argument.', function (done) {
+          var args = ensure.that([ 23 ]).are({
+            first: [ 'number', 42 ],
+            second: [ 'string', 'bar' ]
+          });
+          assert.that(args, is.equalTo({
+            first: 23,
+            second: 'bar'
+          }));
+          done();
+        });
+
+        test('returns the default values for multiple last missing arguments.', function (done) {
+          var args = ensure.that([]).are({
+            first: [ 'number', 42 ],
+            second: [ 'string', 'bar' ]
+          });
+          assert.that(args, is.equalTo({
+            first: 42,
+            second: 'bar'
+          }));
+          done();
+        });
+
+        test('returns the default value for the last missing argument of a type.', function (done) {
+          var args = ensure.that([ 'foo' ]).are({
+            first: [ 'number', 42 ],
+            second: [ 'string', 'bar' ]
+          });
+          assert.that(args, is.equalTo({
+            first: 42,
+            second: 'foo'
+          }));
+          done();
+        });
+
+        test('throws an error when a missing value is not in the end of a type.', function (done) {
+          assert.that(function () {
+            ensure.that([ 'foo', 'bar' ]).are({
+              first: 'string',
+              second: [ 'string' ],
+              third: 'string'
+            });
+          }, is.throwing('undefined is not: string'));
+          done();
+        });
+      });
+    });
+
+    suite('with mixed mandatory and optional arguments', function () {
+      test('returns the correct values.', function (done) {
+        var args = ensure.that([ 42, 12, 'foo' ]).are({
+          first: 'number',
+          second: 'number',
+          third: [ 'number', 23 ],
+          fourth: 'string',
+          fifth: [ 'string', 'bar' ]
+        });
+        assert.that(args, is.equalTo({
+          first: 42,
+          second: 12,
+          third: 23,
+          fourth: 'foo',
+          fifth: 'bar'
+        }));
         done();
       });
     });

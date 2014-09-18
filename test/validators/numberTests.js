@@ -14,7 +14,16 @@ suite('number', function () {
     var validator = new Validator();
     assert.that(validator, is.ofType('object'));
     assert.that(validator.isValid, is.ofType('function'));
+    assert.that(validator.defaultValue, is.ofType('function'));
     done();
+  });
+
+  suite('defaultValue', function () {
+    test('returns 0.', function (done) {
+      var validator = new Validator();
+      assert.that(validator.defaultValue(), is.equalTo(0));
+      done();
+    });
   });
 
   suite('isValid', function () {
