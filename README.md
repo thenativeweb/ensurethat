@@ -66,7 +66,8 @@ You can also have multiple optional arguments, but within a specific type option
 var args = ensure.that(arguments).are({
   first: 'number',
   second: [ 'number', 23 ],
-  third: [ 'number', 42 ]
+  third: [ 'number', 42 ],
+  fourth: 'string'
 });
 ```
 
