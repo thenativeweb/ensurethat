@@ -38,7 +38,7 @@ var add = function () {
 };
 ```
 
-*Please note that as the arguments are accessed using the `arguments` and `args` variables, you may skip specifying the arguments within the function's signature completely.*
+As the arguments are accessed using the `arguments` and `args` variables, you may skip specifying the arguments within the function's signature completely. This also makes sure that you do not get linting errors such as [`no-unused-vars`](http://eslint.org/docs/rules/no-unused-vars.html).
 
 ### Handling optional arguments
 
