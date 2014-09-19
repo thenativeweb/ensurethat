@@ -84,6 +84,7 @@ CustomValidator.prototype.isValid = function (value) {
 };
 
 CustomValidator.prototype.defaultValue = function () {
+  // ...
   // Return the default value in case this validator is being used
   // for a missing optional argument without an explicitly given
   // default value.
