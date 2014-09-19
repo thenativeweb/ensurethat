@@ -26,6 +26,38 @@ suite('ensure', function () {
       done();
     });
 
+    suite('supports validators', function () {
+      test('of type string.', function (done) {
+        var args = ensure.that([ 'bar' ]).are({
+          first: 'string'
+        });
+        assert.that(args, is.equalTo({
+          first: 'bar'
+        }));
+        done();
+      });
+
+      test('of type function.', function (done) {
+        var GreaterThan23 = function () {};
+
+        GreaterThan23.prototype.isValid = function (value) {
+          return value > 23;
+        };
+
+        GreaterThan23.prototype.defaultValue = function () {
+          return 24
+        };
+
+        var args = ensure.that([ 42 ]).are({
+          first: GreaterThan23
+        });
+        assert.that(args, is.equalTo({
+          first: 42
+        }));
+        done();
+      });
+    });
+
     suite('with a single mandatory argument', function () {
       test('returns the parsed argument for a valid argument.', function (done) {
         var args = ensure.that([ 'bar' ]).are({

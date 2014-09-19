@@ -71,6 +71,34 @@ var args = ensure.that(arguments).are({
 });
 ```
 
+### Using custom validators
+
+From time to time there are special requirements for validating arguments. For that you can create a custom validator by providing an empty constructor function with an `isValid` and a `defaultValue` function attached to its prototype.
+
+```javascript
+var CustomValidator = function () {};
+
+CustomValidator.prototype.isValid = function (value) {
+  // ...
+  // Return true or false, depending on whether the value is valid.
+};
+
+CustomValidator.prototype.defaultValue = function () {
+  // Return the default value in case this validator is being used
+  // for a missing optional argument without an explicitly given
+  // default value.
+};
+```
+
+Now you can use this custom validator by providing the constructor name instead of the name of a built-in one when calling `that`.
+
+```javascript
+var args = ensure.that(arguments).are({
+  first: 'number',
+  second: CustomValidator
+});
+```
+
 ## Running the build
 
 This module can be built using [Grunt](http://gruntjs.com/). Besides running the tests, this also analyses the code. To run Grunt, go to the folder where you have installed node-ensurethat and run `grunt`. You need to have [grunt-cli](https://github.com/gruntjs/grunt-cli) installed.
