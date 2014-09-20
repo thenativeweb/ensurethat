@@ -14,31 +14,14 @@ First you need to add a reference to node-ensurethat to your application.
 var ensure = require('node-ensurethat');
 ```
 
-Now you are able to use the `that` function to describe the function's arguments using validators. Currently, the following validators are supported.
+Now you are able to use the `that` function to describe the function's arguments using validators. Currently, the following built-in validators are provided.
 
-- `boolean`, default value is `false`
-- `function`, default value is a no-op function
-- `number`, default value is `0`
-- `object`, default value is `null`
-- `string`, default value is `''`
-- `uuid`, default value is `'00000000-0000-4000-89ab-000000000000'`
-
-In case at least one validator fails, node-ensurethat will throw an error with an appropriate error message.
-
-If everything is fine, the `that` function returns an object which contains a property for each argument.
-
-```javascript
-var add = function () {
-  var args = ensure.that(arguments).are({
-    first: 'number',
-    second: 'number'
-  });
-
-  return args.first + args.second;
-};
-```
-
-Alternatively, you can access the built-in validators using their names as properties on the `ensure` object. This is the same syntax as the one required for [using custom validators](#using-custom-validators).
+- `ensure.boolean()`, aliased as `'boolean'`, default value is `false`
+- `ensure.function()`, aliased as `'function'`, default value is a no-op function
+- `ensure.number()`, aliased as `'number'`, default value is `0`
+- `ensure.object()`, aliased as `'object'`, default value is `null`
+- `ensure.string()`, aliased as `'string'`, default value is `''`
+- `ensure.uuid()`, aliased as `'uuid'`, default value is `'00000000-0000-4000-89ab-000000000000'`
 
 ```javascript
 var add = function () {
@@ -51,7 +34,22 @@ var add = function () {
 };
 ```
 
-As the arguments are accessed using the `arguments` and `args` variables, you may skip specifying the arguments within the function's signature completely. This also makes sure that you do not get linting errors such as [`no-unused-vars`](http://eslint.org/docs/rules/no-unused-vars.html).
+Basically all validators are functions, but those that do not need configuration come with alias names, so that you can also use them by their name.
+
+```javascript
+var add = function () {
+  var args = ensure.that(arguments).are({
+    first: 'number',
+    second: 'number'
+  });
+
+  return args.first + args.second;
+};
+```
+
+Anyway, if everything is fine, the `that` function returns an object which contains a property for each argument. Otherwise, it throws an error with an appropriate error message.
+
+As the arguments are accessed using the `arguments` and `args` variables, you may skip specifying the arguments within the function's signature completely, as shown in the samples above. This also makes sure that you do not get linting errors such as [`no-unused-vars`](http://eslint.org/docs/rules/no-unused-vars.html).
 
 ### Handling optional arguments
 
@@ -117,7 +115,29 @@ var args = ensure.that(arguments).are({
 });
 ```
 
-If you want to create a custom validator with arguments, feel free to add them to the `customValidator` function. You only have to think about providing the arguments when using the validator.
+### Creating configurable validators
+
+If you want to create a configurable custom validator, add arguments to the validator setup function, and provide them when using the validator.
+
+```javascript
+var range = function (min, max) {
+  var Validator = function () {};
+
+  Validator.prototype.isValid = function (value) {
+    return min <= value && value <= max;
+  };
+
+  Validator.prototype.defaultValue = function () {
+    return min;
+  };
+
+  return Validator;
+};
+
+var args = ensure.that(arguments).are({
+  first: ensure.range(23, 42)
+});
+```
 
 ## Running the build
 
