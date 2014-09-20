@@ -117,7 +117,7 @@ var args = ensure.that(arguments).are({
 });
 ```
 
-If you want to create a custom validator with arguments, feel free to add them. You only have to think about providing the arguments when using the validator.
+If you want to create a custom validator with arguments, feel free to add them to the `customValidator` function. You only have to think about providing the arguments when using the validator.
 
 ## Running the build
 
