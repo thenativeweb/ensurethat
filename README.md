@@ -38,6 +38,19 @@ var add = function () {
 };
 ```
 
+Alternatively, you can access the built-in validators using their names as properties on the `ensure` object. This is the same syntax as the one required for [using custom validators](#using-custom-validators).
+
+```javascript
+var add = function () {
+  var args = ensure.that(arguments).are({
+    first: ensure.number(),
+    second: ensure.number()
+  });
+
+  return args.first + args.second;
+};
+```
+
 As the arguments are accessed using the `arguments` and `args` variables, you may skip specifying the arguments within the function's signature completely. This also makes sure that you do not get linting errors such as [`no-unused-vars`](http://eslint.org/docs/rules/no-unused-vars.html).
 
 ### Handling optional arguments
@@ -73,32 +86,38 @@ var args = ensure.that(arguments).are({
 
 ### Using custom validators
 
-From time to time there are special requirements for validating arguments. For that you can create a custom validator by providing an empty constructor function with an `isValid` and a `defaultValue` function attached to its prototype.
+From time to time there are special requirements for validating arguments. For that you can create a custom validator by providing a function that returns an empty constructor function with an `isValid` and a `defaultValue` function attached to its prototype.
 
 ```javascript
-var CustomValidator = function () {};
+var customValidator = function () {
+  var Validator = function () {};
 
-CustomValidator.prototype.isValid = function (value) {
-  // ...
-  // Return true or false, depending on whether the value is valid.
-};
+  Validator.prototype.isValid = function (value) {
+    // ...
+    // Return true or false, depending on whether the value is valid.
+  };
 
-CustomValidator.prototype.defaultValue = function () {
-  // ...
-  // Return the default value in case this validator is being used
-  // for a missing optional argument without an explicitly given
-  // default value.
+  Validator.prototype.defaultValue = function () {
+    // ...
+    // Return the default value in case this validator is being used
+    // for a missing optional argument without an explicitly given
+    // default value.
+  };
+
+  return Validator;
 };
 ```
 
-Now you can use this custom validator by providing the constructor name instead of the name of a built-in one when calling `that`.
+Now you can use this custom validator by calling it instead of a built-in one when calling `that`.
 
 ```javascript
 var args = ensure.that(arguments).are({
-  first: 'number',
-  second: CustomValidator
+  first: ensure.number(),
+  second: customValidator()
 });
 ```
+
+If you want to create a custom validator with arguments, feel free to add them. You only have to think about providing the arguments when using the validator.
 
 ## Running the build
 

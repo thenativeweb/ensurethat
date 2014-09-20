@@ -10,6 +10,16 @@ suite('ensure', function () {
     done();
   });
 
+  test('exposes built-in validators as properties', function (done) {
+    assert.that(ensure.boolean, is.ofType('function'));
+    assert.that(ensure.function, is.ofType('function'));
+    assert.that(ensure.number, is.ofType('function'));
+    assert.that(ensure.object, is.ofType('function'));
+    assert.that(ensure.string, is.ofType('function'));
+    assert.that(ensure.uuid, is.ofType('function'));
+    done();
+  });
+
   suite('that', function () {
     test('is a function.', function (done) {
       assert.that(ensure.that, is.ofType('function'));
@@ -37,7 +47,17 @@ suite('ensure', function () {
         done();
       });
 
-      test('of type function.', function (done) {
+      test('of type internal function.', function (done) {
+        var args = ensure.that([ 'bar' ]).are({
+          first: ensure.string()
+        });
+        assert.that(args, is.equalTo({
+          first: 'bar'
+        }));
+        done();
+      });
+
+      test('of type custom function.', function (done) {
         var GreaterThan23 = function () {},
             args;
 
