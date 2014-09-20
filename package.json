@@ -15,7 +15,8 @@
   "main": "lib/ensure.js",
   "dependencies": {
     "lodash": "2.4.1",
-    "require-all": "0.0.8"
+    "require-all": "0.0.8",
+    "verbal-expressions": "0.1.2"
   },
   "devDependencies": {
     "grunt": "0.4.5",

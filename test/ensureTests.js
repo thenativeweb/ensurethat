@@ -38,17 +38,18 @@ suite('ensure', function () {
       });
 
       test('of type function.', function (done) {
-        var GreaterThan23 = function () {};
+        var GreaterThan23 = function () {},
+            args;
 
         GreaterThan23.prototype.isValid = function (value) {
           return value > 23;
         };
 
         GreaterThan23.prototype.defaultValue = function () {
-          return 24
+          return 24;
         };
 
-        var args = ensure.that([ 42 ]).are({
+        args = ensure.that([ 42 ]).are({
           first: GreaterThan23
         });
         assert.that(args, is.equalTo({
