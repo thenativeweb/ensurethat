@@ -62,5 +62,13 @@ suite('uuid', function () {
         done();
       });
     });
+
+    suite('name', function () {
+      test('returns uuid.', function (done) {
+        var validator = new Validator();
+        assert.that(validator.name, is.equalTo('uuid'));
+        done();
+      });
+    });
   });
 });

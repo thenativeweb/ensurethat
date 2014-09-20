@@ -62,5 +62,13 @@ suite('boolean', function () {
         done();
       });
     });
+
+    suite('name', function () {
+      test('returns boolean.', function (done) {
+        var validator = new Validator();
+        assert.that(validator.name, is.equalTo('boolean'));
+        done();
+      });
+    });
   });
 });

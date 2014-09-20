@@ -84,11 +84,13 @@ var args = ensure.that(arguments).are({
 
 ### Using custom validators
 
-From time to time there are special requirements for validating arguments. For that you can create a custom validator by providing a function that returns an empty constructor function with an `isValid` and a `defaultValue` function attached to its prototype.
+From time to time there are special requirements for validating arguments. For that you can create a custom validator by providing a function that returns an empty constructor function with a `name` property as well as an `isValid` and a `defaultValue` function attached to its prototype.
 
 ```javascript
 var customValidator = function () {
   var Validator = function () {};
+
+  Validator.prototype.name = '...';
 
   Validator.prototype.isValid = function (value) {
     // ...
@@ -122,6 +124,8 @@ If you want to create a configurable custom validator, add arguments to the vali
 ```javascript
 var range = function (min, max) {
   var Validator = function () {};
+
+  Validator.prototype.name = 'range';
 
   Validator.prototype.isValid = function (value) {
     return min <= value && value <= max;

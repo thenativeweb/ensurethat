@@ -68,5 +68,13 @@ suite('number', function () {
         done();
       });
     });
+
+    suite('name', function () {
+      test('returns number.', function (done) {
+        var validator = new Validator();
+        assert.that(validator.name, is.equalTo('number'));
+        done();
+      });
+    });
   });
 });

@@ -58,8 +58,8 @@ suite('ensure', function () {
       });
 
       test('of type custom function.', function (done) {
-        var GreaterThan23 = function () {},
-            args;
+        var args,
+            GreaterThan23 = function () {};
 
         GreaterThan23.prototype.isValid = function (value) {
           return value > 23;
@@ -90,10 +90,19 @@ suite('ensure', function () {
         done();
       });
 
-      test('throws an error for an invalid argument.', function (done) {
+      test('throws an error for an invalid argument with a string validator.', function (done) {
         assert.that(function () {
           ensure.that([ 23 ]).are({
             first: 'string'
+          });
+        }, is.throwing('23 is not: string'));
+        done();
+      });
+
+      test('throws an error for an invalid argument with a function validator.', function (done) {
+        assert.that(function () {
+          ensure.that([ 23 ]).are({
+            first: ensure.string()
           });
         }, is.throwing('23 is not: string'));
         done();
