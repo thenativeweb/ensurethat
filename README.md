@@ -1,17 +1,17 @@
-# node-ensurethat
+# ensurethat
 
-node-ensurethat makes handling arguments a breeze.
+ensurethat makes handling arguments a breeze.
 
 ## Installation
 
-    $ npm install node-ensurethat
+    $ npm install ensurethat
 
 ## Quick start
 
-First you need to add a reference to node-ensurethat to your application.
+First you need to add a reference to ensurethat to your application.
 
 ```javascript
-var ensure = require('node-ensurethat');
+var ensure = require('ensurethat');
 ```
 
 Now you are able to use the `that` function to describe the function's arguments using validators. Currently, the following built-in validators are provided.
@@ -145,7 +145,7 @@ var args = ensure.that(arguments).are({
 
 ## Running the build
 
-This module can be built using [Grunt](http://gruntjs.com/). Besides running the tests, this also analyses the code. To run Grunt, go to the folder where you have installed node-ensurethat and run `grunt`. You need to have [grunt-cli](https://github.com/gruntjs/grunt-cli) installed.
+This module can be built using [Grunt](http://gruntjs.com/). Besides running the tests, this also analyses the code. To run Grunt, go to the folder where you have installed ensurethat and run `grunt`. You need to have [grunt-cli](https://github.com/gruntjs/grunt-cli) installed.
 
     $ grunt
 
