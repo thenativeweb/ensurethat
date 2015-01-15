@@ -1,17 +1,17 @@
 'use strict';
 
-var assert = require('node-assertthat');
+var assert = require('assertthat');
 
-var validator = require('../../lib/validators/string');
+var stringValidator = require('../../lib/validators/string');
 
 suite('string', function () {
   test('is a function.', function (done) {
-    assert.that(validator, is.ofType('function'));
+    assert.that(stringValidator, is.ofType('function'));
     done();
   });
 
   test('returns a function.', function (done) {
-    assert.that(validator(), is.ofType('function'));
+    assert.that(stringValidator(), is.ofType('function'));
     done();
   });
 
@@ -19,7 +19,7 @@ suite('string', function () {
     var Validator;
 
     suiteSetup(function () {
-      Validator = validator();
+      Validator = stringValidator();
     });
 
     test('is a function.', function (done) {

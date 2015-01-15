@@ -1,7 +1,7 @@
 {
-  "name": "node-ensurethat",
+  "name": "ensurethat",
   "version": "0.1.5",
-  "description": "node-ensurethat makes arguments handling a breeze.",
+  "description": "ensurethat makes arguments handling a breeze.",
   "contributors": [
     {
       "name": "Golo Roden",
@@ -15,17 +15,17 @@
   "main": "lib/ensure.js",
   "dependencies": {
     "lodash": "2.4.1",
-    "require-all": "0.0.8",
+    "require-all": "1.0.0",
     "verbal-expressions": "0.1.2"
   },
   "devDependencies": {
+    "assertthat": "0.3.0",
     "grunt": "0.4.5",
-    "node-assertthat": "0.2.0",
-    "tourism": "0.7.3"
+    "tourism": "0.10.2"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thenativeweb/node-ensurethat.git"
+    "url": "git://github.com/thenativeweb/ensurethat.git"
   },
   "license": "MIT"
 }
