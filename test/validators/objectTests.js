@@ -6,12 +6,12 @@ var objectValidator = require('../../lib/validators/object');
 
 suite('object', function () {
   test('is a function.', function (done) {
-    assert.that(objectValidator, is.ofType('function'));
+    assert.that(objectValidator).is.ofType('function');
     done();
   });
 
   test('returns a function.', function (done) {
-    assert.that(objectValidator(), is.ofType('function'));
+    assert.that(objectValidator()).is.ofType('function');
     done();
   });
 
@@ -23,22 +23,22 @@ suite('object', function () {
     });
 
     test('is a function.', function (done) {
-      assert.that(Validator, is.ofType('function'));
+      assert.that(Validator).is.ofType('function');
       done();
     });
 
     test('returns a validator.', function (done) {
       var validator = new Validator();
-      assert.that(validator, is.ofType('object'));
-      assert.that(validator.isValid, is.ofType('function'));
-      assert.that(validator.defaultValue, is.ofType('function'));
+      assert.that(validator).is.ofType('object');
+      assert.that(validator.isValid).is.ofType('function');
+      assert.that(validator.defaultValue).is.ofType('function');
       done();
     });
 
     suite('defaultValue', function () {
       test('returns null.', function (done) {
         var validator = new Validator();
-        assert.that(validator.defaultValue(), is.equalTo(null));
+        assert.that(validator.defaultValue()).is.equalTo(null);
         done();
       });
     });
@@ -46,25 +46,25 @@ suite('object', function () {
     suite('isValid', function () {
       test('returns true for an object.', function (done) {
         var validator = new Validator();
-        assert.that(validator.isValid({ foo: 'bar' }), is.true());
+        assert.that(validator.isValid({ foo: 'bar' })).is.true();
         done();
       });
 
       test('returns true for an empty object.', function (done) {
         var validator = new Validator();
-        assert.that(validator.isValid({}), is.true());
+        assert.that(validator.isValid({})).is.true();
         done();
       });
 
       test('returns true for null.', function (done) {
         var validator = new Validator();
-        assert.that(validator.isValid({}), is.true());
+        assert.that(validator.isValid({})).is.true();
         done();
       });
 
       test('returns false for something not an object.', function (done) {
         var validator = new Validator();
-        assert.that(validator.isValid(23), is.false());
+        assert.that(validator.isValid(23)).is.false();
         done();
       });
     });
@@ -72,7 +72,7 @@ suite('object', function () {
     suite('name', function () {
       test('returns object.', function (done) {
         var validator = new Validator();
-        assert.that(validator.name, is.equalTo('object'));
+        assert.that(validator.name).is.equalTo('object');
         done();
       });
     });

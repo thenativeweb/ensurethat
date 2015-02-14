@@ -14,14 +14,14 @@
   ],
   "main": "lib/ensure.js",
   "dependencies": {
-    "lodash": "2.4.1",
+    "lodash": "3.2.0",
     "require-all": "1.0.0",
     "verbal-expressions": "0.1.2"
   },
   "devDependencies": {
-    "assertthat": "0.3.0",
+    "assertthat": "0.4.2",
     "grunt": "0.4.5",
-    "tourism": "0.10.2"
+    "tourism": "0.13.2"
   },
   "repository": {
     "type": "git",

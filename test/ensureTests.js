@@ -6,33 +6,33 @@ var ensure = require('../lib/ensure');
 
 suite('ensure', function () {
   test('is an object.', function (done) {
-    assert.that(ensure, is.ofType('object'));
+    assert.that(ensure).is.ofType('object');
     done();
   });
 
   test('exposes built-in validators as properties', function (done) {
-    assert.that(ensure.boolean, is.ofType('function'));
-    assert.that(ensure.function, is.ofType('function'));
-    assert.that(ensure.number, is.ofType('function'));
-    assert.that(ensure.object, is.ofType('function'));
-    assert.that(ensure.string, is.ofType('function'));
-    assert.that(ensure.uuid, is.ofType('function'));
+    assert.that(ensure.boolean).is.ofType('function');
+    assert.that(ensure.function).is.ofType('function');
+    assert.that(ensure.number).is.ofType('function');
+    assert.that(ensure.object).is.ofType('function');
+    assert.that(ensure.string).is.ofType('function');
+    assert.that(ensure.uuid).is.ofType('function');
     done();
   });
 
   suite('that', function () {
     test('is a function.', function (done) {
-      assert.that(ensure.that, is.ofType('function'));
+      assert.that(ensure.that).is.ofType('function');
       done();
     });
 
     test('returns an object.', function (done) {
-      assert.that(ensure.that([]), is.ofType('object'));
+      assert.that(ensure.that([])).is.ofType('object');
       done();
     });
 
     test('returns an object with an are function.', function (done) {
-      assert.that(ensure.that([]).are, is.ofType('function'));
+      assert.that(ensure.that([]).are).is.ofType('function');
       done();
     });
 
@@ -41,9 +41,9 @@ suite('ensure', function () {
         var args = ensure.that([ 'bar' ]).are({
           first: 'string'
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 'bar'
-        }));
+        });
         done();
       });
 
@@ -51,9 +51,9 @@ suite('ensure', function () {
         var args = ensure.that([ 'bar' ]).are({
           first: ensure.string()
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 'bar'
-        }));
+        });
         done();
       });
 
@@ -72,9 +72,9 @@ suite('ensure', function () {
         args = ensure.that([ 42 ]).are({
           first: GreaterThan23
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 42
-        }));
+        });
         done();
       });
     });
@@ -84,9 +84,9 @@ suite('ensure', function () {
         var args = ensure.that([ 'bar' ]).are({
           first: 'string'
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 'bar'
-        }));
+        });
         done();
       });
 
@@ -95,7 +95,7 @@ suite('ensure', function () {
           ensure.that([ 23 ]).are({
             first: 'string'
           });
-        }, is.throwing('23 is not: string'));
+        }).is.throwing('23 is not: string');
         done();
       });
 
@@ -104,7 +104,7 @@ suite('ensure', function () {
           ensure.that([ 23 ]).are({
             first: ensure.string()
           });
-        }, is.throwing('23 is not: string'));
+        }).is.throwing('23 is not: string');
         done();
       });
     });
@@ -114,9 +114,9 @@ suite('ensure', function () {
         var args = ensure.that([ 'bar' ]).are({
           first: [ 'string' ]
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 'bar'
-        }));
+        });
         done();
       });
 
@@ -124,9 +124,9 @@ suite('ensure', function () {
         var args = ensure.that([]).are({
           first: [ 'string', 'bar' ]
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 'bar'
-        }));
+        });
         done();
       });
 
@@ -134,9 +134,9 @@ suite('ensure', function () {
         var args = ensure.that([]).are({
           first: [ 'string' ]
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: ''
-        }));
+        });
         done();
       });
 
@@ -145,7 +145,7 @@ suite('ensure', function () {
           ensure.that([ 23 ]).are({
             first: [ 'string' ]
           });
-        }, is.throwing('23 could not be matched.'));
+        }).is.throwing('23 could not be matched.');
         done();
       });
     });
@@ -156,10 +156,10 @@ suite('ensure', function () {
           first: 'string',
           second: 'number'
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 'bar',
           second: 23
-        }));
+        });
         done();
       });
 
@@ -169,7 +169,7 @@ suite('ensure', function () {
             first: 'string',
             second: 'number'
           });
-        }, is.throwing('42 is not: string'));
+        }).is.throwing('42 is not: string');
         done();
       });
 
@@ -179,7 +179,7 @@ suite('ensure', function () {
             first: 'string',
             second: 'number'
           });
-        }, is.throwing('foo is not: number'));
+        }).is.throwing('foo is not: number');
         done();
       });
     });
@@ -191,10 +191,10 @@ suite('ensure', function () {
             first: [ 'string' ],
             second: [ 'string' ]
           });
-          assert.that(args, is.equalTo({
+          assert.that(args).is.equalTo({
             first: 'foo',
             second: 'bar'
-          }));
+          });
           done();
         });
 
@@ -203,10 +203,10 @@ suite('ensure', function () {
             first: [ 'string', 'foo' ],
             second: [ 'string', 'bar' ]
           });
-          assert.that(args, is.equalTo({
+          assert.that(args).is.equalTo({
             first: 'foo',
             second: 'bar'
-          }));
+          });
           done();
         });
 
@@ -215,10 +215,10 @@ suite('ensure', function () {
             first: [ 'string', 'foo' ],
             second: [ 'string', 'bar' ]
           });
-          assert.that(args, is.equalTo({
+          assert.that(args).is.equalTo({
             first: 'foo',
             second: 'bar'
-          }));
+          });
           done();
         });
       });
@@ -229,10 +229,10 @@ suite('ensure', function () {
             first: [ 'number' ],
             second: [ 'string' ]
           });
-          assert.that(args, is.equalTo({
+          assert.that(args).is.equalTo({
             first: 23,
             second: 'bar'
-          }));
+          });
           done();
         });
 
@@ -241,10 +241,10 @@ suite('ensure', function () {
             first: [ 'number', 42 ],
             second: [ 'string', 'bar' ]
           });
-          assert.that(args, is.equalTo({
+          assert.that(args).is.equalTo({
             first: 23,
             second: 'bar'
-          }));
+          });
           done();
         });
 
@@ -253,10 +253,10 @@ suite('ensure', function () {
             first: [ 'number', 42 ],
             second: [ 'string', 'bar' ]
           });
-          assert.that(args, is.equalTo({
+          assert.that(args).is.equalTo({
             first: 42,
             second: 'bar'
-          }));
+          });
           done();
         });
 
@@ -265,10 +265,10 @@ suite('ensure', function () {
             first: [ 'number', 42 ],
             second: [ 'string', 'bar' ]
           });
-          assert.that(args, is.equalTo({
+          assert.that(args).is.equalTo({
             first: 42,
             second: 'foo'
-          }));
+          });
           done();
         });
 
@@ -279,7 +279,7 @@ suite('ensure', function () {
               second: [ 'string' ],
               third: 'string'
             });
-          }, is.throwing('undefined is not: string'));
+          }).is.throwing('undefined is not: string');
           done();
         });
       });
@@ -294,13 +294,13 @@ suite('ensure', function () {
           fourth: 'string',
           fifth: [ 'string', 'bar' ]
         });
-        assert.that(args, is.equalTo({
+        assert.that(args).is.equalTo({
           first: 42,
           second: 12,
           third: 23,
           fourth: 'foo',
           fifth: 'bar'
-        }));
+        });
         done();
       });
     });
