@@ -27,5 +27,9 @@
     "type": "git",
     "url": "git://github.com/thenativeweb/ensurethat.git"
   },
+  "keywords": [
+    "arguments",
+    "assert"
+  ],
   "license": "MIT"
 }
