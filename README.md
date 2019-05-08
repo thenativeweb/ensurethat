@@ -27,7 +27,7 @@ const add = function (left, right) {
 };
 ```
 
-In case the argument passes validation, execution continues without further ado. If an argument does *not* pass validation, an exception is thrown.
+In case the argument passes validation, execution continues without further ado. If an argument does _not_ pass validation, an exception is thrown.
 
 Depending on the type you want to validate, use the `boolean`, `number`, `object` or `string` function. If you want to allow an argument to be optional, pass in the `isOptional` flag and set it to `true`:
 
@@ -41,22 +41,22 @@ Some types provide advanced validators, i.e. you can check for more than just th
 
 #### number
 
-| Validator | Description | Default |
-|-|-|-|
-| minimum | Specifies the minimum value. | `Number.NEGATIVE_INFINITY` |
-| maximum | Specifies the maximum value. | `Number.POSITIVE_INFINITY` |
+| Validator | Description                  | Default                    |
+| --------- | ---------------------------- | -------------------------- |
+| minimum   | Specifies the minimum value. | `Number.NEGATIVE_INFINITY` |
+| maximum   | Specifies the maximum value. | `Number.POSITIVE_INFINITY` |
 
 #### object
 
-| Validator | Description | Default |
-|-|-|-|
+| Validator     | Description                                 | Default |
+| ------------- | ------------------------------------------- | ------- |
 | isNullAllowed | Specifies whether `null` is allowed or not. | `false` |
 
 #### string
 
-| Validator | Description | Default |
-|-|-|-|
-| minLength | Specifies the minimum length. | `0` |
+| Validator | Description                   | Default                    |
+| --------- | ----------------------------- | -------------------------- |
+| minLength | Specifies the minimum length. | `0`                        |
 | maxLength | Specifies the maximum length. | `Number.POSITIVE_INFINITY` |
 
 ## Running the build
