@@ -1,7 +1,7 @@
 {
   "name": "ensurethat",
   "version": "0.2.2",
-  "description": "ensurethat makes arguments handling a breeze.",
+  "description": "ensurethat validates function arguments.",
   "contributors": [
     {
       "name": "Golo Roden",
@@ -14,14 +14,12 @@
   ],
   "main": "lib/ensure.js",
   "dependencies": {
-    "lodash": "3.2.0",
-    "require-all": "1.0.0",
-    "verbal-expressions": "0.1.2"
+    "defekt": "2.0.1",
+    "humanize-string": "2.1.0"
   },
   "devDependencies": {
-    "assertthat": "0.4.2",
-    "grunt": "0.4.5",
-    "tourism": "0.13.2"
+    "assertthat": "3.0.0",
+    "roboter": "4.1.0"
   },
   "repository": {
     "type": "git",
